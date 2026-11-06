@@ -1,12 +1,18 @@
-
 <!DOCTYPE html>
 <html lang="kn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Kannada Grammar Checker</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <header>
@@ -15,38 +21,65 @@
 </header>
 
 <main class="container">
+
     <h2>ನಿಮ್ಮ ಕನ್ನಡ ಪಠ್ಯವನ್ನು ನಮೂದಿಸಿ</h2>
 
-    <textarea id="inputText"
+    <textarea
+        id="inputText"
         placeholder="ನಿಮ್ಮ ಕನ್ನಡ ವಾಕ್ಯವನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ..."
         rows="8"></textarea>
 
+    <h3>ಪರಿಶೀಲನೆ ಆಯ್ಕೆಗಳು</h3>
+
     <div class="options">
-        <label><input type="checkbox" id="spelling" checked> Spelling Check</label>
-        <label><input type="checkbox" id="grammar" checked> Grammar Check</label>
-        <label><input type="checkbox" id="punctuation" checked> Punctuation Check</label>
+        <label>
+            <input type="checkbox" id="spelling" checked>
+            Spelling Check
+        </label>
+
+        <label>
+            <input type="checkbox" id="grammar" checked>
+            Grammar Check
+        </label>
+
+        <label>
+            <input type="checkbox" id="punctuation" checked>
+            Punctuation Check
+        </label>
     </div>
 
     <div class="buttons">
         <button onclick="checkGrammar()">ಪರಿಶೀಲಿಸಿ</button>
-        <button onclick="clearText()">Clear</button>
+        <button onclick="clearText()">Clear Text</button>
     </div>
 
     <section class="result">
+
         <h3>Correction Results</h3>
-        <div id="result">ನಿಮ್ಮ ಫಲಿತಾಂಶ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.</div>
+
+        <div id="result">
+            ನಿಮ್ಮ ಫಲಿತಾಂಶ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.
+        </div>
 
         <h3>Corrected Text</h3>
-        <div id="correctedText">ತಿದ್ದಿದ ಪಠ್ಯ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.</div>
+
+        <div id="correctedText">
+            ತಿದ್ದಿದ ಪಠ್ಯ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.
+        </div>
 
         <button onclick="copyText()">Copy Corrected Text</button>
+
+        <button onclick="downloadText()">Download Result</button>
+
     </section>
+
 </main>
 
 <footer>
-    Kannada Grammar Checker - First Prototype
+    Kannada Grammar Checker | Version 2.0
 </footer>
 
 <script src="script.js"></script>
+
 </body>
 </html>
