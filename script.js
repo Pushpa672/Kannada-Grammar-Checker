@@ -79,9 +79,11 @@ function checkGrammar() {
                     spellingRules[wrong]
                 );
 
-                messages.push(
-                    "Spelling: " + wrong + " → " + spellingRules[wrong]
-                );
+               messages.push(
+    "Spelling Mistake: " + wrong +
+    "\nCorrect Word: " + spellingRules[wrong] +
+    "\nExplanation: The spelling has been corrected."
+);
             }
         }
     }
