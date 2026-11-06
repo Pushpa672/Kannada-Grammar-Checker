@@ -7,48 +7,46 @@
     <title>Kannada Grammar Checker</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <header>
-        <h1>ಕನ್ನಡ ವ್ಯಾಕರಣ ಪರಿಶೀಲಕ</h1>
-        <p>Kannada Spelling & Grammar Checker</p>
-    </header>
+<header>
+    <h1>ಕನ್ನಡ ವ್ಯಾಕರಣ ಪರಿಶೀಲಕ</h1>
+    <p>Kannada Spelling, Grammar & Punctuation Checker</p>
+</header>
 
-    <main class="container">
+<main class="container">
+    <h2>ನಿಮ್ಮ ಕನ್ನಡ ಪಠ್ಯವನ್ನು ನಮೂದಿಸಿ</h2>
 
-        <h2>Check Your Kannada Text</h2>
+    <textarea id="inputText"
+        placeholder="ನಿಮ್ಮ ಕನ್ನಡ ವಾಕ್ಯವನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ..."
+        rows="8"></textarea>
 
-        <textarea
-            id="inputText"
-            placeholder="ನಿಮ್ಮ ಕನ್ನಡ ವಾಕ್ಯವನ್ನು ಇಲ್ಲಿ ಬರೆಯಿರಿ..."
-        ></textarea>
+    <div class="options">
+        <label><input type="checkbox" id="spelling" checked> Spelling Check</label>
+        <label><input type="checkbox" id="grammar" checked> Grammar Check</label>
+        <label><input type="checkbox" id="punctuation" checked> Punctuation Check</label>
+    </div>
 
-        <div class="buttons">
-            <button onclick="checkGrammar()">
-                Check Grammar
-            </button>
+    <div class="buttons">
+        <button onclick="checkGrammar()">ಪರಿಶೀಲಿಸಿ</button>
+        <button onclick="clearText()">Clear</button>
+    </div>
 
-            <button onclick="clearText()">
-                Clear
-            </button>
-        </div>
+    <section class="result">
+        <h3>Correction Results</h3>
+        <div id="result">ನಿಮ್ಮ ಫಲಿತಾಂಶ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.</div>
 
-        <section class="result">
-            <h3>Correction Results</h3>
+        <h3>Corrected Text</h3>
+        <div id="correctedText">ತಿದ್ದಿದ ಪಠ್ಯ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.</div>
 
-            <div id="result">
-                Your correction results will appear here.
-            </div>
-        </section>
+        <button onclick="copyText()">Copy Corrected Text</button>
+    </section>
+</main>
 
-    </main>
+<footer>
+    Kannada Grammar Checker - First Prototype
+</footer>
 
-    <footer>
-        Kannada Grammar Checker | First Prototype
-    </footer>
-
-    <script src="script.js"></script>
-
+<script src="script.js"></script>
 </body>
 </html>
