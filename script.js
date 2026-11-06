@@ -1,19 +1,16 @@
 
 // KANNADA GRAMMAR CHECKER
-// Version 1.0
+// Version 2.0
 
-// Common Kannada spelling corrections
+// SPELLING CORRECTIONS
 const spellingRules = {
-    "ಶಾಲೆಗೆ": "ಶಾಲೆಗೆ",
     "ವಿದ್ಯಾರ್ತಿ": "ವಿದ್ಯಾರ್ಥಿ",
     "ವಿಧ್ಯಾರ್ಥಿ": "ವಿದ್ಯಾರ್ಥಿ",
-    "ಧನ್ಯವಾದಗಳು": "ಧನ್ಯವಾದಗಳು",
     "ನಮಸಕಾರ": "ನಮಸ್ಕಾರ",
-    "ಆರೋಗ್ಯ": "ಆರೋಗ್ಯ",
     "ವ್ಯಕರಣ": "ವ್ಯಾಕರಣ"
 };
 
-// Sample Kannada grammar corrections
+// GRAMMAR CORRECTIONS
 const grammarRules = [
     {
         wrong: "ನಾನು ಶಾಲೆಗೆ ಹೋಗುತ್ತಾನೆ",
@@ -23,7 +20,7 @@ const grammarRules = [
     {
         wrong: "ನಾನು ಕೆಲಸ ಮಾಡುತ್ತಾನೆ",
         correct: "ನಾನು ಕೆಲಸ ಮಾಡುತ್ತೇನೆ",
-        explanation: "ಕರ್ತೃ ಮತ್ತು ಕ್ರಿಯಾಪದ ಹೊಂದಾಣಿಕೆ ತಪ್ಪಾಗಿದೆ."
+        explanation: "ಕರ್ತೃ ಮತ್ತು ಕ್ರಿಯಾಪದ ಹೊಂದಾಣಿಕೆಯನ್ನು ತಿದ್ದಲಾಗಿದೆ."
     },
     {
         wrong: "ಅವನು ಶಾಲೆಗೆ ಹೋಗುತ್ತೇನೆ",
@@ -37,11 +34,10 @@ const grammarRules = [
     }
 ];
 
-// Main checking function
+// MAIN CHECKING FUNCTION
 function checkGrammar() {
 
     const input = document.getElementById("inputText").value;
-
     const resultBox = document.getElementById("result");
     const correctedBox = document.getElementById("correctedText");
 
@@ -53,34 +49,24 @@ function checkGrammar() {
 
     let corrected = input;
     let messages = [];
-    let count = 0;
 
     // SPELLING CHECK
     if (document.getElementById("spelling").checked) {
 
         for (const wrong in spellingRules) {
 
-            if (wrong !== spellingRules[wrong]) {
+            const pattern = new RegExp(wrong, "gu");
 
-                const pattern = new RegExp(
-                    wrong,
-                    "gu"
+            if (pattern.test(corrected)) {
+
+                corrected = corrected.replace(
+                    pattern,
+                    spellingRules[wrong]
                 );
 
-                if (pattern.test(corrected)) {
-
-                    corrected = corrected.replace(
-                        pattern,
-                        spellingRules[wrong]
-                    );
-
-                    messages.push(
-                        "Spelling: " + wrong +
-                        " → " + spellingRules[wrong]
-                    );
-
-                    count++;
-                }
+                messages.push(
+                    "Spelling: " + wrong + " → " + spellingRules[wrong]
+                );
             }
         }
     }
@@ -100,8 +86,6 @@ function checkGrammar() {
                 messages.push(
                     "Grammar: " + rule.explanation
                 );
-
-                count++;
             }
         });
     }
@@ -109,21 +93,17 @@ function checkGrammar() {
     // PUNCTUATION CHECK
     if (document.getElementById("punctuation").checked) {
 
-        let before = corrected;
+        const before = corrected;
 
-        // Remove unnecessary spaces before punctuation
         corrected = corrected.replace(/\s+([,.!?।])/gu, "$1");
 
-        // Add space after punctuation when missing
         corrected = corrected.replace(
             /([,.!?।])(?=\S)/gu,
             "$1 "
         );
 
-        // Remove extra spaces
         corrected = corrected.replace(/[ \t]{2,}/gu, " ");
 
-        // Add Kannada full stop if sentence has no ending punctuation
         corrected = corrected.replace(
             /([^\s.!?।])\s*$/u,
             "$1."
@@ -131,9 +111,8 @@ function checkGrammar() {
 
         if (before !== corrected) {
             messages.push(
-                "Punctuation: ವಿರಾಮ ಚಿಹ್ನೆ ಅಥವಾ ಖಾಲಿ ಜಾಗವನ್ನು ತಿದ್ದಲಾಗಿದೆ."
+                "Punctuation: ವಿರಾಮ ಚಿಹ್ನೆಗಳನ್ನು ತಿದ್ದಲಾಗಿದೆ."
             );
-            count++;
         }
     }
 
@@ -146,36 +125,62 @@ function checkGrammar() {
     } else {
 
         resultBox.textContent =
-            "Found " + count + " possible correction(s):\n\n" +
-            messages.join("\n\n");
+            "Correction Details:\n\n" + messages.join("\n\n");
     }
 
     correctedBox.textContent = corrected;
 }
 
-// CLEAR TEXT
+// CLEAR BUTTON
 function clearText() {
 
     document.getElementById("inputText").value = "";
 
     document.getElementById("result").textContent =
-        "Your results will appear here.";
+        "ನಿಮ್ಮ ಫಲಿತಾಂಶ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.";
 
     document.getElementById("correctedText").textContent =
-        "Corrected text will appear here.";
+        "ತಿದ್ದಿದ ಪಠ್ಯ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.";
 }
 
-// COPY CORRECTED TEXT
+// COPY BUTTON
 function copyText() {
 
     const text = document.getElementById("correctedText").textContent;
 
-    if (!text || text === "Corrected text will appear here.") {
-        alert("No corrected text to copy.");
+    if (!text || text === "ತಿದ್ದಿದ ಪಠ್ಯ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.") {
+        alert("ಮೊದಲು ಕನ್ನಡ ಪಠ್ಯವನ್ನು ಪರಿಶೀಲಿಸಿ.");
         return;
     }
 
     navigator.clipboard.writeText(text)
-        .then(() => alert("Corrected text copied!"))
-        .catch(() => alert("Unable to copy. Please copy manually."));
+        .then(() => alert("ಪಠ್ಯವನ್ನು ಯಶಸ್ವಿಯಾಗಿ Copy ಮಾಡಲಾಗಿದೆ!"))
+        .catch(() => alert("Copy ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."));
+}
+
+// DOWNLOAD BUTTON
+function downloadText() {
+
+    const text = document.getElementById("correctedText").textContent;
+
+    if (!text || text === "ತಿದ್ದಿದ ಪಠ್ಯ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.") {
+        alert("ಮೊದಲು ಕನ್ನಡ ಪಠ್ಯವನ್ನು ಪರಿಶೀಲಿಸಿ.");
+        return;
+    }
+
+    const blob = new Blob(
+        [text],
+        { type: "text/plain;charset=utf-8" }
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "Kannada-Corrected-Text.txt";
+
+    link.click();
+
+    URL.revokeObjectURL(url);
 }
